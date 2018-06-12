@@ -49,6 +49,14 @@ gx = 1
 gy = 450
 bits = 10
 
+p = 131
+n = 11
+h = 12
+a = 1
+b = 0
+gx = 0x31
+gy = 0x56
+bits = 8
 
 curve = ECurve.ShortWeierstrass(p, a, b, n, h, gx, gy, bits)
 privkey = int(FieldElement.urandom(curve.p))
