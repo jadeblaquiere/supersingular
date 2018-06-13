@@ -40,13 +40,31 @@ gx = 5
 gy = 2835
 bits = 13
 
+p = 491
+n = 41
+h = 12
+a = 1
+b = 0
+gx = 4
+gy = 331
+bits = 9
+
 p = 983
 n = 41
 h = 24
 a = 1
 b = 0
-gx = 1
-gy = 450
+gx = 5
+gy = 674
+bits = 10
+
+p = 887
+n = 37
+h = 24
+a = 1
+b = 0
+gx = 6
+gy = 444
 bits = 10
 
 p = 131
@@ -54,8 +72,35 @@ n = 11
 h = 12
 a = 1
 b = 0
-gx = 0x31
-gy = 0x56
+gx = 6
+gy = 109
+bits = 8
+
+p = 2063
+n = 43
+h = 48
+a = 1
+b = 0
+gx = 6
+gy = 1732
+bits = 12
+
+p = 311
+n = 13
+h = 24
+a = 1
+b = 0
+gx = 2
+gy = 53
+bits = 9
+
+p = 227
+n = 19
+h = 12
+a = 1
+b = 0
+gx = 2
+gy = 64
 bits = 8
 
 curve = ECurve.ShortWeierstrass(p, a, b, n, h, gx, gy, bits)

@@ -31,6 +31,7 @@
 import gc
 from math import sqrt
 from rabinmiller import isPrime
+from ECC import FieldElement
 
 primes = []
 
@@ -80,7 +81,23 @@ def factor(x):
     assert isPrime(x)
     return factors
 
-for a in range(4, 24):
+def divisors(factors):
+    a = len(factors)
+    expa = int(pow(2,a))
+    divs = []
+    for i in range(1,expa):
+        d = 1
+        jj = 1
+        for j in range(0,a):
+            if (jj & i) != 0:
+                d *= factors[j]
+            jj *= 2
+        assert d > 1
+        if d not in divs:
+            divs.append(d)
+    return divs
+
+for a in range(4, 28):
     for b in range(1, a-1):
         for c in range(1, a-1):
             for m in range(-1,2,2):
@@ -99,7 +116,7 @@ for p in primes:
     f = factor(p+1)
     r = f[-1]
     h = (p+1) // r
-    if r > h:
+    if r > (h >> 1):
         rf = factor(r-1)
         print("p = %d 0x%X" % (p, p))
         print("factors p+1(%d) = " % (p+1), f)
@@ -107,4 +124,29 @@ for p in primes:
         assert h == product(f[:-1])
         print("order = %d, cofactor= %d" % (r, h))
         print(r-1, rf)
+        divs = divisors(f[:-1])
+        print(divs)
+        for d in divs:
+            dm = d - 1
+            rm = r - 1
+            if dm > 1:
+                if ((rm // dm) * dm) == rm:
+                    print(d, dm, rm//dm)
+        print("p = %d" % (p))
+        print("n = %d" % (r))
+        print("h = %d" % (h))
+        afe = FieldElement(1, p)
+        bfe = FieldElement(0, p)
+        print("a = %d" % (int(afe)))
+        print("b = %d" % (int(bfe)))
+        for x in range(2, p):
+            xfe = FieldElement(x, p)
+            right = (xfe * xfe * xfe) + (afe * xfe) + bfe
+            yfe = right.sqrt()
+            if yfe is not None:
+                print("gx = %d" % (int(xfe)))
+                print("gy = %d" % (int(yfe)))
+                break
+        print("bits = %d" % p.bit_length())
+        print()
     gc.collect()
